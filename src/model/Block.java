@@ -4,18 +4,22 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class Block {
+
     // Attrubutes
     public char id;
     public boolean[][] shape;
+    public int tileCount;
 
     // Create Block
     public Block(char id, boolean[][] shape) {
         this.id = id;
         this.shape = shape;
+        this.tileCount = countActiveTiles(shape);
     }
     public Block(char id, List<String> stringShape) {
         this.id = id;
         this.shape = createShape(id, stringShape);
+        this.tileCount = countActiveTiles(this.shape);
     }
     public static boolean[][] createShape(char id, List<String> stringBlock) {
         int row = stringBlock.size();
@@ -73,5 +77,18 @@ public class Block {
             }
         }
         return new Block(this.id, newShape);
+    }
+
+    // Count how many Tiles
+    public static int countActiveTiles(boolean[][] shape) {
+        int count = 0;
+        for (int i=0; i<shape.length; i++) {
+            for (int j=0; j<shape[0].length; j++) {
+                if (shape[i][j]) {
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 }

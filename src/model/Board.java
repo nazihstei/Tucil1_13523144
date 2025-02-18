@@ -1,6 +1,8 @@
 package model;
 
 public class Board {
+    
+    // Attributes
     public int row;
     public int col;
     public typeBoard tipe;
