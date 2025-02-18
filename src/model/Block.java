@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 public class Block {
     // Attrubutes
-    char id;
-    boolean[][] shape;
+    public char id;
+    public boolean[][] shape;
 
     // Create Block
     public Block(char id, boolean[][] shape) {

@@ -1,10 +1,10 @@
 package model;
 
 public class Board {
-    int row;
-    int col;
-    typeBoard tipe;
-    char[][] map;
+    public int row;
+    public int col;
+    public typeBoard tipe;
+    public char[][] map;
 
     public enum typeBoard {
         DEFAULT, 
@@ -33,8 +33,11 @@ public class Board {
     public boolean putBlock(Block blok, int idRow, int idCol) {
         int row = blok.shape.length;
         int col = blok.shape[0].length;
-        for (int i=idRow; i<row; i++) {
-            for (int j=idCol; j<col; j++) {
+        for (int i=0; i<row; i++) {
+            for (int j=0; j<col; j++) {
+                if (((i+idRow) >= this.row) || ((j+idCol) >= this.col)) {
+                    return false;
+                }
                 if (blok.shape[i][j] && (this.map[i+idRow][j+idCol] != ' ')) {
                     return false;
                 }
