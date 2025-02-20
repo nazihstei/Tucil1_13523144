@@ -1,8 +1,8 @@
 package utility;
 
 import model.*;
-import java.io.File;
-import java.io.FileNotFoundException;
+
+import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -60,9 +60,7 @@ public class FileHandler {
         
         return output;
     }
-
-
-    // Helper
+    // Helper untuk mendacari char of Block dari stream
     public static char getCharOfBlock(String str) {
         for (char c : str.toCharArray()) {
             if (c != ' ') {
@@ -70,6 +68,53 @@ public class FileHandler {
             }
         }
         return ' ';
+    }
+    
+    // Output File
+    public class OutputRedirector {
+        private static PrintStream originalOut = System.out;
+        private static PrintStream fileOut;
+
+        public static void setOutputToFile(String filepath) throws FileNotFoundException {
+            // File output stream
+            FileOutputStream fos = new FileOutputStream(filepath);
+            fileOut = new PrintStream(new TeeOutputStream(originalOut, fos), true);
+
+            // Set System.out ke output baru (konsol + file)
+            System.setOut(fileOut);
+        }
+
+        public static void setOutputToOriginal() {
+            if (fileOut != null) {
+                fileOut.close();
+            }
+            System.setOut(originalOut);
+        }
+        
+        // Helper class untuk duplikasi output
+        private static class TeeOutputStream extends OutputStream {
+            private final OutputStream out1, out2;
+
+            public TeeOutputStream(OutputStream out1, OutputStream out2) {
+                this.out1 = out1;
+                this.out2 = out2;
+            }
+            @Override
+            public void write(int b) throws IOException {
+                out1.write(b);
+                out2.write(b);
+            }
+            @Override
+            public void flush() throws IOException {
+                out1.flush();
+                out2.flush();
+            }
+            @Override
+            public void close() throws IOException {
+                out1.close();
+                out2.close();
+            }
+        }
     }
     
 }
