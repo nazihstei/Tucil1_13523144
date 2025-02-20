@@ -37,7 +37,7 @@ public class Solve {
                     if (isSuccess) {
                         return isSuccess;
                     } else {
-                        ; // cabut block from board and next shape
+                        board.pullOutBlock(shape, i, j);
                     }
                 }
             }
