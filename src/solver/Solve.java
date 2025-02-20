@@ -13,7 +13,7 @@ public class Solve {
     }
     
     // DEFAULT solver
-    public boolean checkOneBlock(Board board, List<List<Block>> blockList, int idx, int stopIdx) {
+    public boolean checkDefaultSolve(Board board, List<List<Block>> blockList, int idx, int stopIdx) {
         boolean isSuccess = false;
         List<Block> blok = blockList.get(idx);
         
@@ -30,7 +30,7 @@ public class Solve {
                         if (idx == stopIdx) {
                             return true;
                         } else {
-                            isSuccess = checkOneBlock(board, blockList, idx+1, stopIdx);   
+                            isSuccess = checkDefaultSolve(board, blockList, idx+1, stopIdx);   
                         }
                     }
 
