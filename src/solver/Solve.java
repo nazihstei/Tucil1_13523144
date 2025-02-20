@@ -1,7 +1,6 @@
 package solver;
 
 import model.*;
-
 import java.util.List;
 
 public class Solve {
