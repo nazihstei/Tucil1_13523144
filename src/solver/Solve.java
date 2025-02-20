@@ -28,7 +28,7 @@ public class Solve {
                     boolean isFit = board.putBlock(shape, i, j);
                     if (isFit) {
                         if (idx == stopIdx) {
-                            return true;
+                            return board.isComplete();
                         } else {
                             isSuccess = checkDefaultSolve(board, blockList, idx+1, stopIdx);   
                         }
