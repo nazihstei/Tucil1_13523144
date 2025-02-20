@@ -107,6 +107,19 @@ public class Main {
             System.out.println("");
 
             // Solution print here
+            int idxForColor = -1;
+            List<Character> charMet = new ArrayList<>();
+            for (int i=0; i<board.row; i++) {
+                for (int j=0; j<board.col; j++) {
+                    if (charMet.contains(board.map[i][j])) {
+                        idxForColor = charMet.indexOf(board.map[i][j]);
+                    } else {
+                        charMet.add(board.map[i][j]);
+                        idxForColor = charMet.size()-1;
+                    }
+                    ColorText.colorPrint(String.format("%c", board.map[i][j]), idxForColor);
+                }
+            }
             
         } else {
             System.out.println("");
