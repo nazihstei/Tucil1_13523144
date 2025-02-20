@@ -66,4 +66,16 @@ public class Board {
         }
         return true;
     }
+
+    // Check Board
+    public boolean isComplete() {
+        for (char[] rowMap : this.map) {
+            for (char cc : rowMap) {
+                if (cc == ' ') {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
