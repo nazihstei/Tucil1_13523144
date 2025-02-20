@@ -52,4 +52,18 @@ public class Board {
         }
         return true;   
     }
+    
+    // Pull out Block
+    public boolean pullOutBlock(Block blok, int idRow, int idCol) {
+        int row = blok.shape.length;
+        int col = blok.shape[0].length;
+        for (int i=0; i<row; i++) {
+            for (int j=0; j<col; j++) {
+                if (blok.shape[i][j]) {
+                    this.map[i+idRow][j+idCol] = ' ';
+                }
+            }
+        }
+        return true;
+    }
 }
