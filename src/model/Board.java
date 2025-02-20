@@ -8,7 +8,7 @@ public class Board {
     public typeBoard tipe;
     public char[][] map;
 
-    public enum typeBoard {
+    public static enum typeBoard {
         DEFAULT, 
         CUSTOM,
         PYRAMID
