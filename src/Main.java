@@ -21,14 +21,12 @@ public class Main {
         // Interface
         System.out.println("\n[=======[ Welcome To IQ Puzzler ]=======]");
         System.out.println("");
-        System.out.println("[Program] Masukkan file txt:");
-        System.out.print("[Input]   "); String filepath = scanner.nextLine();
+        System.out.print("[Program] Masukkan file txt >> "); String filepath = scanner.nextLine();
         System.out.println("[Program] Ingin menyimpan solusi Puzzle?");
         System.out.println("          1. Ya");
         System.out.println("          2. Tidak");
-        System.out.print("[Input]   "); int saveSolution = scanner.nextInt();
-        System.out.println("[Program] Masukkan nama file penyimpanan:");
-        System.out.print("[Input]   "); String saveFile = scanner.nextLine();
+        System.out.print(">> "); int saveSolution = scanner.nextInt();
+        System.out.println("[Program] Masukkan nama file penyimpanan >> "); String saveFile = scanner.nextLine();
         
         // Load from file
         List<Object> inputData = FileHandler.inputFile(filepath);
