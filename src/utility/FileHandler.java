@@ -35,15 +35,18 @@ public class FileHandler {
                         blockCount = Integer.parseInt(line1.get(2));
                     }
                     case 2 -> {
-                        Board.typeBoard.valueOf(line);
+                        tipe = Board.typeBoard.valueOf(line);
                     }
                     default -> {
                         char currChar = getCharOfBlock(line);
                         if (currChar != prevChar) {
+                            List<String> newBlock = new ArrayList<>(); newBlock.add(line);
+                            blockList.add(newBlock);
                             blockListIndex++;
                             prevChar = currChar;
+                        } else {
+                            blockList.get(blockListIndex).add(line);
                         }
-                        blockList.get(blockListIndex).add(line);
                     }
                 }
                 lineCount++;

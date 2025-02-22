@@ -23,7 +23,7 @@ public class Solve {
                     if (idx == stopIdx) {
                         this.tryCount++;
                     }
-
+                    
                     boolean isFit = board.putBlock(shape, i, j);
                     if (isFit) {
                         if (idx == stopIdx) {
@@ -31,13 +31,14 @@ public class Solve {
                         } else {
                             isSuccess = checkDefaultSolve(board, blockList, idx+1, stopIdx);   
                         }
+                        
+                        if (isSuccess) {
+                            return isSuccess;
+                        } else {
+                            board.pullOutBlock(shape, i, j);
+                        }
                     }
 
-                    if (isSuccess) {
-                        return isSuccess;
-                    } else {
-                        board.pullOutBlock(shape, i, j);
-                    }
                 }
             }
         }

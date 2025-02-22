@@ -1,5 +1,8 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Board {
     
     // Attributes
@@ -45,9 +48,11 @@ public class Board {
                 }
             }
         }
-        for (int i=idRow; i<row; i++) {
-            for (int j=idCol; j<col; j++) {
-                this.map[i+idRow][j+idCol] = blok.id;
+        for (int i=0; i<row; i++) {
+            for (int j=0; j<col; j++) {
+                if (blok.shape[i][j]) {
+                    this.map[i+idRow][j+idCol] = blok.id;
+                }
             }
         }
         return true;   
@@ -77,5 +82,30 @@ public class Board {
             }
         }
         return true;
+    }
+
+    // Print Board
+    public void printBoard() {
+        int idxForColor = -1;
+            List<Character> charMet = new ArrayList<>();
+            for (int i=0; i<this.row; i++) {
+                for (int j=0; j<this.col; j++) {
+                    if (this.map[i][j] == ' ') {
+                        System.out.print(". ");
+                    } else {
+                        System.out.print(this.map[i][j] + " ");
+                    }
+                    // Color Print
+                    // if (charMet.contains(board.map[i][j])) {
+                    //     idxForColor = charMet.indexOf(board.map[i][j]);
+                    // } else {
+                        //     charMet.add(board.map[i][j]);
+                        //     idxForColor = charMet.size()-1;
+                        // }
+                        // ColorText.colorPrint(String.format("%c", board.map[i][j]), idxForColor);
+                    }
+                    System.out.print("\n");
+                }
+                System.out.print("\n");
     }
 }

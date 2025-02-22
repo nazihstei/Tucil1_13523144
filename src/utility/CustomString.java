@@ -1,6 +1,8 @@
 package utility;
 
-public class ColorText {
+import java.io.IOException;
+
+public class CustomString {
     public static final String RESET = "\u001B[0m"; // Reset ke default
 
     // Mapping warna
@@ -30,17 +32,31 @@ public class ColorText {
         }
         // Jika warna tidak ditemukan, gunakan default (putih)
         if (index == -1) {
-            System.out.println(text);
+            System.out.print(text);
         } else {
-            System.out.println(COLORS[index] + text + RESET);
+            System.out.print(COLORS[index] + text + RESET);
         }
     }
     public static void colorPrint(String text, int colorIndex) {
         // Jika warna tidak ditemukan, gunakan default (putih)
         if (0<colorIndex || colorIndex>25) {
-            System.out.println(text);
+            System.out.print(text);
         } else {
-            System.out.println(COLORS[colorIndex] + text + RESET);
+            System.out.print(COLORS[colorIndex] + text + RESET);
         }
     }
+
+    // Clear terminal
+    public static void clearTerminal() {
+        try {
+            if (System.getProperty("os.name").contains("Windows")) {
+                new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
+            } else {
+                new ProcessBuilder("clear").inheritIO().start().waitFor();
+            }
+        } catch (IOException | InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
