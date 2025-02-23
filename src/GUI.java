@@ -51,6 +51,9 @@ public class GUI {
         JPanel rightPanel = new JPanel(new BorderLayout());
         boardPanel = new JPanel();
         infoTable = new JTable(3, 2);
+        infoTable.getColumnModel().getColumn(0).setHeaderValue("Keterangan");
+        infoTable.getColumnModel().getColumn(1).setHeaderValue("Nilai");
+        infoTable.getTableHeader().repaint(); // Refresh header
         infoTable.setValueAt("Waktu Eksekusi:", 0, 0);
         infoTable.setValueAt("Jumlah Percobaan:", 1, 0);
         infoTable.setValueAt("Info Tambahan:", 2, 0);
@@ -105,19 +108,19 @@ public class GUI {
         // Mengaktifkan tombol run setelah file dipilih
         runButton.setEnabled(true);
     }
-
+    
     private void onRun() {
         Solve solver = new Solve();
         Instant timeStart = Instant.now();
         boolean puzzleSolved = solver.checkDefaultSolve(this.board, this.blockList, 0, this.numBlock-1);
         Instant timeEnd = Instant.now();
         long timeExecuted = Duration.between(timeStart, timeEnd).toMillis();
-
+        
         String resultText;
         if (puzzleSolved) {
-            if (solver.tryCount < 1000) {
+            if (solver.tryCount < 10000) {
                 resultText = "Your Puzzle is Too Easy!";
-            } else if (solver.tryCount < 10000) {
+            } else if (solver.tryCount < 1000000) {
                 resultText = "Your Puzzle is Quite Difficult...";
             } else {
                 resultText = "Your Puzzle is EXTREMELY HARD!!!";
@@ -125,13 +128,14 @@ public class GUI {
         } else {
             resultText = "Your Puzzle is SUCKS! No one can solve this.";
         }
-
+        
         setExecutionResult(timeExecuted, solver.tryCount, resultText);
-
+        
         int saveOption = JOptionPane.showConfirmDialog(frame, "Simpan hasil sebagai gambar?", "Simpan", JOptionPane.YES_NO_OPTION);
         if (saveOption == JOptionPane.YES_OPTION) {
             saveImage();
         }
+        runButton.setEnabled(false);
     }
 
     public void setExecutionResult(long timeExecuted, long trialCount, String customizeString) {

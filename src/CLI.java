@@ -73,7 +73,7 @@ public class CLI {
         // Output
         CustomString.clearTerminal();
         if (puzzleSolved) {
-            if (solver.tryCount < 1000) {
+            if (solver.tryCount < 10000) {
                 System.out.println("");
                 System.out.printf("   ///////\n");
                 System.out.printf("  [[^ w ^]]   I can solve this in %d ms\n", timeExecuted);
@@ -82,7 +82,7 @@ public class CLI {
                 System.out.println("[======================================================]");
                 System.out.println("[=======[       Your Puzzle is Too Easy!       ]=======]");
                 System.out.println("[======================================================]");
-            } else if (solver.tryCount < 10000) {
+            } else if (solver.tryCount < 1000000) {
                 System.out.println("");
                 System.out.printf("   ///////\n");
                 System.out.printf("  [[. _ .]]   I can solve this in %d ms\n", timeExecuted);
@@ -125,7 +125,7 @@ public class CLI {
         
         // End Program
         FileHandler.OutputRedirector.setOutputToOriginal();
-        scanner.close();
+        scanner.nextLine();
     }
     
 }
