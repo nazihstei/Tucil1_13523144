@@ -4,7 +4,7 @@ import model.*;
 import java.util.List;
 
 public class Solve {
-    public int tryCount;
+    public long tryCount;
 
     // Constructor
     public Solve() {

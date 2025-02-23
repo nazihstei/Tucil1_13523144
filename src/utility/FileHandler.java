@@ -63,7 +63,58 @@ public class FileHandler {
         
         return output;
     }
-    // Helper untuk mendacari char of Block dari stream
+    public static List<Object> inputFile(File file) {
+        List<Object> output = new ArrayList<>();
+        
+        try {
+            int row=0, col=0, blockCount=0;
+            Board.typeBoard tipe=Board.typeBoard.DEFAULT;
+            List<List<String>> blockList = new ArrayList<>();
+            
+            char prevChar = ' ';
+            int lineCount = 1;
+            int blockListIndex = -1;
+
+            Scanner stream = new Scanner(file);
+            while (stream.hasNextLine()) {
+                String line = stream.nextLine();
+                switch (lineCount) {
+                    case 1 -> {
+                        List<String> line1 = Arrays.asList(line.split(" "));
+                        row = Integer.parseInt(line1.get(0));
+                        col = Integer.parseInt(line1.get(1));
+                        blockCount = Integer.parseInt(line1.get(2));
+                    }
+                    case 2 -> {
+                        tipe = Board.typeBoard.valueOf(line);
+                    }
+                    default -> {
+                        char currChar = getCharOfBlock(line);
+                        if (currChar != prevChar) {
+                            List<String> newBlock = new ArrayList<>(); newBlock.add(line);
+                            blockList.add(newBlock);
+                            blockListIndex++;
+                            prevChar = currChar;
+                        } else {
+                            blockList.get(blockListIndex).add(line);
+                        }
+                    }
+                }
+                lineCount++;
+            }
+            stream.close();
+            output.add(row); output.add(col); output.add(blockCount); 
+            output.add(tipe);
+            output.add(blockList);
+            
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        
+        return output;
+    }
+    // Helper untuk mencari char of Block dari stream
     public static char getCharOfBlock(String str) {
         for (char c : str.toCharArray()) {
             if (c != ' ') {
