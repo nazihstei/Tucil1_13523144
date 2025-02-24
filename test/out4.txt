@@ -1,0 +1,12 @@
+
+   ///////
+  [[x , x]]   I have try this in 9261 ms
+  /ll---ll\   with 192 attempts of combination.
+  *il###li*
+[======================================================]
+[=======[ Have you ever made a Puzzle before?? ]=======]
+[=======[         Your puzzle is sucks!        ]=======]
+[=======[      Even Albert Einstein can't      ]=======]
+[=======[          solve this puzzle.          ]=======]
+[======================================================]
+

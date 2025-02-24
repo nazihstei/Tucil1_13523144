@@ -1,5 +1,7 @@
 3 3 2
 DEFAULT
-AA
+AAA
 A
-BBB
+A
+BB
+BB

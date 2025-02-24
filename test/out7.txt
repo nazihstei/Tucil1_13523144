@@ -1,0 +1,16 @@
+
+   ///////
+  [[^ w ^]]   I can solve this in 8679 ms
+  /ll---ll\   with 19 attempts of combination.
+  *il###li*
+[======================================================]
+[=======[       Your Puzzle is Too Easy!       ]=======]
+[======================================================]
+[=======[ This is the Solution of your Puzzle: ]=======]
+[======================================================]
+
+V W Z X 
+W X Z X 
+Y Y X Y 
+Y Y Y Y 
+

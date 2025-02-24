@@ -1,7 +1,9 @@
-4 4 3
+4 4 4
 DEFAULT
-XXX
+WWW
+XXXX
  X
 YY
 YY
+Z
 ZZZ

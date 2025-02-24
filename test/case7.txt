@@ -1,11 +1,11 @@
-5 5 4
+4 4 5
 DEFAULT
+V
+W
+ W
   X
-XXX
+X X
  X
-   Y
+Y YY
 YYYY
- Z
-ZZ
-ZZ
-WWWW
+ ZZ
