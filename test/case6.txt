@@ -1,7 +1,7 @@
 4 4 3
 DEFAULT
-XXX
- X
+XX
+XX
 YY
 YY
-ZZZ
+ZZZZ
