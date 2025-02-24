@@ -121,9 +121,9 @@ public class GUI {
         
         String resultText;
         if (puzzleSolved) {
-            if (solver.tryCount < 100000) {
+            if (timeExecuted < 100000) {
                 resultText = "Your Puzzle is Too Easy!";
-            } else if (solver.tryCount < 1000000000) {
+            } else if (timeExecuted < 10000000) {
                 resultText = "Your Puzzle is Quite Difficult...";
             } else {
                 resultText = "Your Puzzle is EXTREMELY HARD!!!";

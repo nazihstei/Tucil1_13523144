@@ -76,7 +76,7 @@ public class CLI {
         
         // Output
         if (puzzleSolved) {
-            if (solver.tryCount < 100000) {
+            if (timeExecuted < 100000) {
                 System.out.println("");
                 System.out.printf("   ///////\n");
                 System.out.printf("  [[^ w ^]]   I can solve this in %d ms\n", timeExecuted);
@@ -85,7 +85,7 @@ public class CLI {
                 System.out.println("[======================================================]");
                 System.out.println("[=======[       Your Puzzle is Too Easy!       ]=======]");
                 System.out.println("[======================================================]");
-            } else if (solver.tryCount < 1000000000) {
+            } else if (timeExecuted < 10000000) {
                 System.out.println("");
                 System.out.printf("   ///////\n");
                 System.out.printf("  [[. _ .]]   I can solve this in %d ms\n", timeExecuted);
