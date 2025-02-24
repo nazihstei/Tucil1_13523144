@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Buat folder bin jika belum ada
-mkdir -p bin
-
 # Compile semua file di src/
 find src -name "*.java" > sources.txt
 javac -d bin -cp bin @sources.txt
@@ -20,5 +17,5 @@ find bin -type f -name "*.class" -delete
 find bin -type d -empty -delete
 
 # Cara penggunaan
-# chmod +x build.sh  # Hanya pertama kali untuk memberi izin eksekusi
-# ./build.sh         # Compile & run
+# chmod +x run.sh
+# ./run.sh

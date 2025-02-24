@@ -1,5 +1,4 @@
 @echo off
-mkdir bin 2>nul
 
 :: Cari semua file .java
 dir /s /b src\*.java > sources.txt
@@ -20,4 +19,4 @@ for /r bin %%f in (*.class) do del "%%f"
 for /d /r bin %%d in (*) do rd "%%d" 2>nul
 
 :: Cara Penggunaan
-:: build.bat
+:: run.bat
