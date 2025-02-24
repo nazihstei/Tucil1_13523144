@@ -3,6 +3,8 @@ package model;
 import java.util.ArrayList;
 import java.util.List;
 
+import utility.CustomString;
+
 public class Board {
     
     // Attributes
@@ -87,26 +89,28 @@ public class Board {
     // Print Board
     public void printBoard() {
         int idxForColor = -1;
-            List<Character> charMet = new ArrayList<>();
-            for (int i=0; i<this.row; i++) {
-                for (int j=0; j<this.col; j++) {
-                    if (this.map[i][j] == ' ') {
-                        System.out.print(". ");
-                    } else {
-                        System.out.print(this.map[i][j] + " ");
-                    }
-                    // Color Print
-                    // if (charMet.contains(board.map[i][j])) {
-                    //     idxForColor = charMet.indexOf(board.map[i][j]);
-                    // } else {
-                        //     charMet.add(board.map[i][j]);
-                        //     idxForColor = charMet.size()-1;
-                        // }
-                        // ColorText.colorPrint(String.format("%c", board.map[i][j]), idxForColor);
-                    }
-                    System.out.print("\n");
+        List<Character> charMet = new ArrayList<>();
+        for (int i=0; i<this.row; i++) {
+            for (int j=0; j<this.col; j++) {
+                // No Color
+                if (this.map[i][j] == ' ') {
+                    System.out.print(". ");
+                } else {
+                    System.out.print(this.map[i][j] + " ");
                 }
-                System.out.print("\n");
+
+                // Color Print
+                // if (charMet.contains(this.map[i][j])) {
+                //     idxForColor = charMet.indexOf(this.map[i][j]);
+                // } else {
+                //     charMet.add(this.map[i][j]);
+                //     idxForColor = charMet.size()-1;
+                // }
+                // CustomString.colorPrint(String.format("%c", this.map[i][j]), idxForColor);
+            }
+            System.out.print("\n");
+        }
+        System.out.print("\n");
     }
     
 }

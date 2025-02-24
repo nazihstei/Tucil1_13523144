@@ -132,23 +132,30 @@ public class FileHandler {
         public static void setOutputToFile(String filepath) throws FileNotFoundException {
             // File output stream
             FileOutputStream fos = new FileOutputStream(filepath);
-            fileOut = new PrintStream(new TeeOutputStream(originalOut, fos), true);
+            fileOut = new PrintStream(new TeeOutputStream(originalOut, fos), false);
 
             // Set System.out ke output baru (konsol + file)
             System.setOut(fileOut);
         }
 
         public static void setOutputToOriginal() {
-            if (fileOut != null) {
-                fileOut.close();
-            }
             System.setOut(originalOut);
+            System.out.flush();
+            if (fileOut != null) {
+                try {
+                    fileOut.flush();
+                    fileOut.close();
+                } catch (Exception e) {
+                    System.err.println("Gagal menutup output file: " + e.getMessage());
+                }
+                fileOut = null;
+            }
         }
         
         // Helper class untuk duplikasi output
         private static class TeeOutputStream extends OutputStream {
             private final OutputStream out1, out2;
-
+            
             public TeeOutputStream(OutputStream out1, OutputStream out2) {
                 this.out1 = out1;
                 this.out2 = out2;

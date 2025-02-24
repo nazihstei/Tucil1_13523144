@@ -31,23 +31,25 @@ public class GUI {
     private File selectedFile;
     private Board board;
     private List<List<Block>> blockList;
+    private boolean heuristic;
 
-    public GUI() {
-        frame = new JFrame("Matrix GUI");
+    public GUI(boolean heuristic) {
+        this.heuristic = heuristic;
+        frame = new JFrame("IQ Puzzler Pro");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(900, 600);
         frame.setLayout(new BorderLayout());
 
-        // Panel kiri (Tombol)
+        // Panel kiri (Tombol & Tabel)
         JPanel leftPanel = new JPanel();
-        leftPanel.setLayout(new GridLayout(2, 1, 10, 10));
+        leftPanel.setLayout(new GridLayout(1, 2, 30, 30));
         inputFileButton = new JButton("Input File");
         runButton = new JButton("Run");
         runButton.setEnabled(false); // Run baru aktif setelah file dipilih
         leftPanel.add(inputFileButton);
         leftPanel.add(runButton);
 
-        // Panel kanan (Matriks & Tabel)
+        // Panel kanan (Board)
         JPanel rightPanel = new JPanel(new BorderLayout());
         boardPanel = new JPanel();
         infoTable = new JTable(3, 2);
@@ -59,11 +61,11 @@ public class GUI {
         infoTable.setValueAt("Info Tambahan:", 2, 0);
 
         rightPanel.add(boardPanel, BorderLayout.CENTER);
-        rightPanel.add(new JScrollPane(infoTable), BorderLayout.SOUTH);
+        rightPanel.add(new JScrollPane(infoTable), BorderLayout.WEST);
 
         // Menambahkan ke frame
-        frame.add(leftPanel, BorderLayout.WEST);
         frame.add(rightPanel, BorderLayout.CENTER);
+        frame.add(leftPanel, BorderLayout.NORTH);
 
         // Event Listener
         inputFileButton.addActionListener(e -> loadFile());
@@ -110,17 +112,18 @@ public class GUI {
     }
     
     private void onRun() {
-        Solve solver = new Solve();
+        Solve solver = new Solve(this.heuristic);
+        long totalCombination = Progress.countTotalCombination((this.boardRow*this.boardCol), 8, 0, this.numBlock-1);
         Instant timeStart = Instant.now();
-        boolean puzzleSolved = solver.checkDefaultSolve(this.board, this.blockList, 0, this.numBlock-1);
+        boolean puzzleSolved = solver.checkDefaultSolve(this.board, this.blockList, 0, this.numBlock-1, true, totalCombination);
         Instant timeEnd = Instant.now();
         long timeExecuted = Duration.between(timeStart, timeEnd).toMillis();
         
         String resultText;
         if (puzzleSolved) {
-            if (solver.tryCount < 10000) {
+            if (solver.tryCount < 100000) {
                 resultText = "Your Puzzle is Too Easy!";
-            } else if (solver.tryCount < 1000000) {
+            } else if (solver.tryCount < 1000000000) {
                 resultText = "Your Puzzle is Quite Difficult...";
             } else {
                 resultText = "Your Puzzle is EXTREMELY HARD!!!";
@@ -201,7 +204,7 @@ public class GUI {
         }
     }
 
-    public static void runGUI() {
-        SwingUtilities.invokeLater(GUI::new);
+    public static void runGUI(boolean heuristic) {
+        SwingUtilities.invokeLater(() -> new GUI(heuristic));
     }
 }

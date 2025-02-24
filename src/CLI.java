@@ -9,11 +9,12 @@ import java.util.Scanner;
 
 import java.time.Instant;
 import java.io.FileNotFoundException;
+import java.io.PrintStream;
 import java.time.Duration;
 
 public class CLI {
 
-    public static void runCLI() {
+    public static void runCLI(boolean heuristic) {
         
         // IO utility
         Scanner scanner = new Scanner(System.in);
@@ -34,6 +35,7 @@ public class CLI {
         int numBlock = (int) inputData.get(2);
         Board.typeBoard boardType = (Board.typeBoard) inputData.get(3);
         List<List<String>> blockStringList = (List<List<String>>) inputData.getLast();
+        long totalCombination = Progress.countTotalCombination((boardRow*boardCol), 8, 0, numBlock-1);
         
         // Generate Board
         Board board = new Board(boardRow, boardCol, boardType);
@@ -52,8 +54,14 @@ public class CLI {
         System.out.println("[Program] Starting to find solution ...");
         
         // Generate Solution
-        Solve solver = new Solve();
-        if (saveSolution == 'y') {
+        Solve solver = new Solve(heuristic);
+        Instant timeStart = Instant.now();
+        boolean puzzleSolved = solver.checkDefaultSolve(board, blockList, 0, numBlock-1, true, totalCombination);
+        Instant timeEnd = Instant.now();
+        long timeExecuted = Duration.between(timeStart, timeEnd).toMillis();
+        CustomString.clearTerminal();
+        
+        if (saveSolution=='y' || saveSolution=='Y') {
             System.out.println("");
             System.out.println("[Program] Masukkan nama file penyimpanan"); 
             System.out.print("          >> "); 
@@ -65,15 +73,10 @@ public class CLI {
                 e.getStackTrace();
             }
         }
-        Instant timeStart = Instant.now();
-        boolean puzzleSolved = solver.checkDefaultSolve(board, blockList, 0, numBlock-1);
-        Instant timeEnd = Instant.now();
-        long timeExecuted = Duration.between(timeStart, timeEnd).toMillis();
         
         // Output
-        CustomString.clearTerminal();
         if (puzzleSolved) {
-            if (solver.tryCount < 10000) {
+            if (solver.tryCount < 100000) {
                 System.out.println("");
                 System.out.printf("   ///////\n");
                 System.out.printf("  [[^ w ^]]   I can solve this in %d ms\n", timeExecuted);
@@ -82,7 +85,7 @@ public class CLI {
                 System.out.println("[======================================================]");
                 System.out.println("[=======[       Your Puzzle is Too Easy!       ]=======]");
                 System.out.println("[======================================================]");
-            } else if (solver.tryCount < 1000000) {
+            } else if (solver.tryCount < 1000000000) {
                 System.out.println("");
                 System.out.printf("   ///////\n");
                 System.out.printf("  [[. _ .]]   I can solve this in %d ms\n", timeExecuted);
@@ -104,10 +107,10 @@ public class CLI {
             System.out.println("[=======[ This is the Solution of your Puzzle: ]=======]");
             System.out.println("[======================================================]");
             System.out.println("");
-
+            
             // Solution print here
             board.printBoard();
-                
+            
         } else {
             System.out.println("");
             System.out.printf("   ///////\n");
@@ -120,11 +123,14 @@ public class CLI {
             System.out.println("[=======[      Even Albert Einstein can't      ]=======]");
             System.out.println("[=======[          solve this puzzle.          ]=======]");
             System.out.println("[======================================================]");
-            System.err.println("");
+            System.out.println("");
         }
         
         // End Program
         FileHandler.OutputRedirector.setOutputToOriginal();
+        if (saveSolution!='Y' || saveSolution!='y') {
+            System.exit(0);
+        }
         scanner.nextLine();
     }
     
